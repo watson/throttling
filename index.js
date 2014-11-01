@@ -4,24 +4,30 @@ var util = require('util');
 
 var noop = function () {};
 
-var cacher = module.exports = function (ms, fn) {
-  var cache, cachedAt;
-  if (typeof ms === 'function') return cacher(Infinity, ms);
+var cache = module.exports = function (ms, fn) {
+  var argsCache, resCache, cachedAt;
+  if (typeof ms === 'function') return cache(Infinity, ms);
   return function (cb) {
     if (!cb) cb = noop;
-    if (!cache || cachedAt + ms < Date.now())
-      fn(function (err) {
+    if (!cachedAt || cachedAt + ms < Date.now()) {
+      if (!fn.length) cachedAt = Date.now();
+      return resCache = fn(function (err) {
         if (util.isError(err)) {
-          cache = cachedAt = null;
+          argsCache = cachedAt = null;
         } else {
-          cache = arguments;
+          argsCache = arguments;
           cachedAt = Date.now();
         }
-        cb.apply(null, arguments);
+        var args = arguments;
+        process.nextTick(function () {
+          cb.apply(null, args);
+        });
       });
-    else
-      process.nextTick(function () {
-        cb.apply(null, cache);
-      });
+    }
+
+    process.nextTick(function () {
+      cb.apply(null, argsCache);
+    });
+    return resCache;
   };
 };
