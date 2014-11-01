@@ -25,11 +25,11 @@ test('should allow the callback to be optional', function (t) {
   run();
 });
 
-test('should call the callback with the fn callback arguments', function (t) {
+test('should parse on all arugments to the callback', function (t) {
   var run = cache(function (cb) {
     cb(1,2,3);
   });
-  run(function (a,b,c,d) {
+  run(function (a,b,c) {
     t.equal(a, 1);
     t.equal(b, 2);
     t.equal(c, 3);
@@ -37,7 +37,7 @@ test('should call the callback with the fn callback arguments', function (t) {
   });
 });
 
-test('should cache the result for a 2nd call', function (t) {
+test('should use the cached arguments for a 2nd call', function (t) {
   var run = cache(function (cb) {
     cb(Math.random());
   });
@@ -50,7 +50,7 @@ test('should cache the result for a 2nd call', function (t) {
 });
 
 test('should expire the cache after the timeout', function (t) {
-  var run = cache(50, function (cb) {
+  var run = cache(30, function (cb) {
     cb(Math.random());
   });
   run(function (r1) {
@@ -59,7 +59,7 @@ test('should expire the cache after the timeout', function (t) {
         t.notEqual(r1, r2);
         t.end();
       });
-    }, 80);
+    }, 50);
   });
 });
 
