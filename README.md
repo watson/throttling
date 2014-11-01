@@ -1,16 +1,16 @@
-# cache-callback
+# limit-callback
 
 Cache the result of a callback for x milliseconds.
 
-[![Build Status](https://travis-ci.org/watson/cache-callback.png)](https://travis-ci.org/watson/cache-callback)
+[![Build Status](https://travis-ci.org/watson/limit-callback.png)](https://travis-ci.org/watson/limit-callback)
 
 ## Usage
 
 ```js
 var fs = require('fs');
-var cache = require('cache-callback');
+var limit = require('limit-callback');
 
-var getFile = cache(1000*60, function (callback) {
+var getFile = limit(1000*60, function (callback) {
   fs.readFile('/etc/passwd', callback);
 });
 
@@ -21,7 +21,7 @@ getFile(function (err, data) {
 
 ## API
 
-Requireing cache-callback returns a function you can use to build
+Requireing limit-callback returns a function you can use to build
 caches:
 
 ```js

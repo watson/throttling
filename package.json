@@ -1,5 +1,5 @@
 {
-  "name": "cache-callback",
+  "name": "limit-callback",
   "version": "0.0.0",
   "description": "Cache the result of a callback for x milliseconds",
   "main": "index.js",
@@ -21,10 +21,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/watson/cache-callback.git"
+    "url": "https://github.com/watson/limit-callback.git"
   },
   "bugs": {
-    "url": "https://github.com/watson/cache-callback/issues"
+    "url": "https://github.com/watson/limit-callback/issues"
   },
-  "homepage": "https://github.com/watson/cache-callback"
+  "homepage": "https://github.com/watson/limit-callback"
 }
