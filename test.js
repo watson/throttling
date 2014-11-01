@@ -36,6 +36,20 @@ test('should call the cached function again after a timeout', function (t) {
   }, 50);
 });
 
+test('should be able to specify the timeout in an options hash', function (t) {
+  var calls = 0;
+  var run = cache({ timeout: 30 }, function () {
+    return ++calls;
+  });
+  t.equal(run(), 1);
+  t.equal(run(), 1);
+  setTimeout(function () {
+    t.equal(run(), 2);
+    t.equal(run(), 2);
+    t.end();
+  }, 50);
+});
+
 test('should work for async callbacks', function (t) {
   var calls = 0;
   var run = cache(30, function (cb) {
@@ -119,4 +133,28 @@ test('should clear the caches if an error occurs', function (t) {
       t.end();
     });
   });
+});
+
+test('should throttle instead of cache if opts.wait is set', function (t) {
+  var run = cache({ timeout: 50, wait: true }, function (cb) {
+    cb(Math.random());
+  });
+  var start = Date.now();
+  var r1, r2;
+  run(function (res) {
+    r1 = res;
+  });
+  setTimeout(function () {
+    run(function (res) {
+      r2 = res;
+    });
+    run(function (r3) {
+      var end = Date.now();
+      t.ok(end - 45 > start, 'should wait ca 50ms');
+      t.ok(Number.isFinite(r2), 'should be a finite number');
+      t.notEqual(r1, r2);
+      t.equal(r3, r2);
+      t.end();
+    });
+  }, 10);
 });

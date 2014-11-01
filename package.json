@@ -1,7 +1,7 @@
 {
   "name": "limit-callback",
   "version": "0.0.0",
-  "description": "Cache the result of a callback for x milliseconds",
+  "description": "Throttle a function and cache the result for x milliseconds",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"
@@ -15,7 +15,10 @@
   "keywords": [
     "cache",
     "cached",
+    "throttle",
+    "limit",
     "callback",
+    "function",
     "timeout",
     "expire"
   ],
