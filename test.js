@@ -52,3 +52,17 @@ test('should expire the cache after the timeout', function (t) {
     }, 80);
   });
 });
+
+test('should clear the cache if an error occurs', function (t) {
+  var run = cache(function (cb) {
+    cb(new Error(), Math.random());
+  });
+  run(function (err, r1) {
+    t.ok(err instanceof Error);
+    run(function (err, r2) {
+      t.ok(err instanceof Error);
+      t.notEqual(r1, r2);
+      t.end();
+    });
+  });
+});

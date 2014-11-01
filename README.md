@@ -49,6 +49,11 @@ Arguments:
   time before the cache expires, the callback will be called with the
   cached arguments
 
+## Error handling
+
+If the first argument parsed to the `fn` callback is an instance of
+`Error`, the callback will not be cached.
+
 ## License
 
 MIT
