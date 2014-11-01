@@ -158,3 +158,22 @@ test('should throttle instead of cache if opts.wait is set', function (t) {
     });
   }, 10);
 });
+
+test.only('recursive', function (t) {
+  var run = throttle({ timeout: 50, wait: true }, function (cb) {
+    setTimeout(function () {
+      cb(Math.random());
+    }, 10);
+  });
+  var times = 5;
+  run(function loop (result) {
+    if (!--times) {
+      setTimeout((function (oldTimes) {
+        t.equal(times, oldTimes);
+        t.end();
+        process.exit();
+      })(times), 30);
+    }
+    run(loop);
+  });
+});

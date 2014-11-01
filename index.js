@@ -18,12 +18,14 @@ var cache = module.exports = function (opts, fn) {
     queue.push(cb);
     if (throttleIdent) return;
     throttleIdent = setTimeout(function () {
+      var oldQueue = queue;
+      queue = [];
+      throttleIdent = null;
       resCache = run(function () {
         var cb;
-        while (cb = queue.shift()) {
+        while (cb = oldQueue.shift()) {
           cb.apply(null, arguments);
         }
-        throttleIdent = null;
       });
     }, expires - Date.now());
   };
