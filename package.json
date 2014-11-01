@@ -1,5 +1,5 @@
 {
-  "name": "limit-callback",
+  "name": "throttling",
   "version": "0.0.0",
   "description": "Throttle a function and cache the result for x milliseconds",
   "main": "index.js",
@@ -24,10 +24,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/watson/limit-callback.git"
+    "url": "https://github.com/watson/throttling.git"
   },
   "bugs": {
-    "url": "https://github.com/watson/limit-callback/issues"
+    "url": "https://github.com/watson/throttling/issues"
   },
-  "homepage": "https://github.com/watson/limit-callback"
+  "homepage": "https://github.com/watson/throttling"
 }

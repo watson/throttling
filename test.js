@@ -2,19 +2,19 @@
 
 var util = require('util');
 var test = require('tape');
-var cache = require('./');
+var chrottle = require('./');
 
-test('should return the return value of the cached function', function (t) {
-  var run = cache(function () {
+test('should return the return value of the throttled function', function (t) {
+  var run = chrottle(function () {
     return 42;
   });
   t.equal(run(), 42);
   t.end();
 });
 
-test('should only call the cached function once', function (t) {
+test('should only call the throttled function once', function (t) {
   var calls = 0;
-  var run = cache(function () {
+  var run = chrottle(function () {
     return ++calls;
   });
   t.equal(run(), 1);
@@ -22,9 +22,9 @@ test('should only call the cached function once', function (t) {
   t.end();
 });
 
-test('should call the cached function again after a timeout', function (t) {
+test('should call the throttled function again after a timeout', function (t) {
   var calls = 0;
-  var run = cache(30, function () {
+  var run = chrottle(30, function () {
     return ++calls;
   });
   t.equal(run(), 1);
@@ -38,7 +38,7 @@ test('should call the cached function again after a timeout', function (t) {
 
 test('should be able to specify the timeout in an options hash', function (t) {
   var calls = 0;
-  var run = cache({ timeout: 30 }, function () {
+  var run = chrottle({ timeout: 30 }, function () {
     return ++calls;
   });
   t.equal(run(), 1);
@@ -52,7 +52,7 @@ test('should be able to specify the timeout in an options hash', function (t) {
 
 test('should work for async callbacks', function (t) {
   var calls = 0;
-  var run = cache(30, function (cb) {
+  var run = chrottle(30, function (cb) {
     cb(++calls);
   });
   run(function (res) {
@@ -70,7 +70,7 @@ test('should work for async callbacks', function (t) {
 });
 
 test('should parse on all arugments to the callback', function (t) {
-  var run = cache(function (cb) {
+  var run = chrottle(function (cb) {
     cb(1,2,3);
   });
   run(function (a,b,c) {
@@ -82,7 +82,7 @@ test('should parse on all arugments to the callback', function (t) {
 });
 
 test('should allow the runner callback to be optional', function (t) {
-  var run = cache(function (cb) {
+  var run = chrottle(function (cb) {
     cb();
     t.ok(true);
     t.end();
@@ -91,7 +91,7 @@ test('should allow the runner callback to be optional', function (t) {
 });
 
 test('should use the cached arguments for a 2nd call', function (t) {
-  var run = cache(function (cb) {
+  var run = chrottle(function (cb) {
     cb(Math.random());
   });
   run(function (r1) {
@@ -103,7 +103,7 @@ test('should use the cached arguments for a 2nd call', function (t) {
 });
 
 test('should expire the arguments cache after the timeout', function (t) {
-  var run = cache(30, function (cb) {
+  var run = chrottle(30, function (cb) {
     cb(Math.random());
   });
   run(function (r1) {
@@ -117,7 +117,7 @@ test('should expire the arguments cache after the timeout', function (t) {
 });
 
 test('should clear the caches if an error occurs', function (t) {
-  var run = cache(function (cb) {
+  var run = chrottle(function (cb) {
     var rand = Math.random();
     cb(new Error(), rand);
     return rand;
@@ -136,7 +136,7 @@ test('should clear the caches if an error occurs', function (t) {
 });
 
 test('should throttle instead of cache if opts.wait is set', function (t) {
-  var run = cache({ timeout: 50, wait: true }, function (cb) {
+  var run = chrottle({ timeout: 50, wait: true }, function (cb) {
     cb(Math.random());
   });
   var start = Date.now();

@@ -1,16 +1,16 @@
-# limit-callback
+# throttling
 
 Throttle a function and cache the result for x milliseconds.
 
-[![Build Status](https://travis-ci.org/watson/limit-callback.png)](https://travis-ci.org/watson/limit-callback)
+[![Build Status](https://travis-ci.org/watson/throttling.png)](https://travis-ci.org/watson/throttling)
 
 ## Example
 
 ```js
 var fs = require('fs');
-var limit = require('limit-callback');
+var throttle = require('throttling');
 
-var getFile = limit(1000*60, function (callback) {
+var getFile = throttle(1000*60, function (callback) {
   fs.readFile('/etc/passwd', callback);
 });
 
@@ -21,13 +21,13 @@ getFile(function (err, data) {
 
 ## Usage
 
-Requireing limit-callback returns a generator function. The most simple
-way to use limit-callback is to call this generator function with the
+Requireing throttling returns a generator function. The most simple
+way to use throttling is to call this generator function with the
 function you want to throttle:
 
 ```js
 var calls = 0;
-var runner = limit(function () {
+var runner = throttle(function () {
   return ++calls;
 });
 ```
@@ -52,7 +52,7 @@ function:
 
 ```js
 var calls = 0;
-var runner = limit(1000, function () {
+var runner = throttle(1000, function () {
   return ++calls;
 });
 
@@ -68,7 +68,7 @@ If your function needs to do any async work, call this with the result
 when done:
 
 ```js
-var runner = limit(1000, function (callback) {
+var runner = throttle(1000, function (callback) {
   process.nextTick(function () {
     callback(Math.random());
   });
@@ -102,7 +102,7 @@ var options = {
   timeout: 1000,
   wait: true
 };
-var runner = limit(options, function (callback) {
+var runner = throttle(options, function (callback) {
   process.nextTick(function () {
     callback(++calls);
   });
@@ -137,7 +137,7 @@ callback will not be cached.
 
 ```js
 var calls = 0;
-var runner = limit(1000, function (callback) {
+var runner = throttle(1000, function (callback) {
   callback(new Error(), ++calls);
 });
 
