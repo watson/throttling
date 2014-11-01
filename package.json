@@ -1,6 +1,6 @@
 {
   "name": "throttling",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Throttle a function and cache the result for x milliseconds",
   "main": "index.js",
   "scripts": {
