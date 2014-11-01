@@ -1,0 +1,32 @@
+{
+  "name": "cache-callback",
+  "version": "0.0.0",
+  "description": "Cache the result of a callback for x milliseconds",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Thomas Watson Steen <w@tson.dk>",
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^3.0.1"
+  },
+  "dependencies": {
+    "tape": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/watson/cache-callback.git"
+  },
+  "keywords": [
+    "cache",
+    "cached",
+    "callback",
+    "timeout",
+    "expire"
+  ],
+  "bugs": {
+    "url": "https://github.com/watson/cache-callback/issues"
+  },
+  "homepage": "https://github.com/watson/cache-callback"
+}
