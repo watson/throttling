@@ -40,9 +40,9 @@ test('should cache the result for a 2nd call', function (t) {
 });
 
 test('should expire the cache after the timeout', function (t) {
-  var run = cache(function (cb) {
+  var run = cache(50, function (cb) {
     cb(Math.random());
-  }, 50);
+  });
   run(function (r1) {
     setTimeout(function () {
       run(function (r2) {

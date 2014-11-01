@@ -10,9 +10,9 @@ Cache the result of a callback for x milliseconds.
 var fs = require('fs');
 var cache = require('cache-callback');
 
-var getFile = cache(function (callback) {
+var getFile = cache(1000*60, function (callback) {
   fs.readFile('/etc/passwd', callback);
-}, 1000*60);
+});
 
 getFile(function (err, data) {
   console.log(data);

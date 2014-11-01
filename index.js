@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function (fn, ms) {
+var cacher = module.exports = function (ms, fn) {
   var cache, cachedAt;
-  if (!ms) ms = Infinity;
+  if (typeof ms === 'function') return cacher(Infinity, ms);
   return function (cb) {
     if (!cache || cachedAt + ms < Date.now())
       fn(function () {
