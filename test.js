@@ -15,6 +15,15 @@ test('should call the function first time', function (t) {
   });
 });
 
+test('should allow the callback to be optional', function (t) {
+  var run = cache(function (cb) {
+    cb();
+    t.ok(true);
+    t.end();
+  });
+  run();
+});
+
 test('should call the callback with the fn callback arguments', function (t) {
   var run = cache(function (cb) {
     cb(1,2,3);

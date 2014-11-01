@@ -39,7 +39,7 @@ Arguments:
 The cache function returns a runner function:
 
 ```js
-runner(callback)
+runner([callback])
 ```
 
 Arguments:
@@ -47,7 +47,7 @@ Arguments:
 - `callback` - This callback will be called with whatever arguments the
   `fn` function calls its callback with. If the runner is called a 2nd
   time before the cache expires, the callback will be called with the
-  cached arguments
+  cached arguments. The callback is optional
 
 ## Error handling
 
