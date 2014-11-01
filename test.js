@@ -159,7 +159,7 @@ test('should throttle instead of cache if opts.wait is set', function (t) {
   }, 10);
 });
 
-test.only('recursive', function (t) {
+test('recursive', function (t) {
   var run = throttle({ timeout: 50, wait: true }, function (cb) {
     setTimeout(function () {
       cb(Math.random());
