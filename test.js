@@ -15,25 +15,24 @@ test('should call the function first time', function (t) {
   });
 });
 
-test('should call the callback with an error and one or more aguments', function (t) {
+test('should call the callback with the fn callback arguments', function (t) {
   var run = cache(function (cb) {
-    cb(1,2,3,4);
+    cb(1,2,3);
   });
   run(function (a,b,c,d) {
     t.equal(a, 1);
     t.equal(b, 2);
     t.equal(c, 3);
-    t.equal(d, 4);
     t.end();
   });
 });
 
 test('should cache the result for a 2nd call', function (t) {
   var run = cache(function (cb) {
-    cb(null, Math.random());
+    cb(Math.random());
   });
-  run(function (err, r1) {
-    run(function (err, r2) {
+  run(function (r1) {
+    run(function (r2) {
       t.equal(r1, r2);
       t.end();
     });
@@ -42,11 +41,11 @@ test('should cache the result for a 2nd call', function (t) {
 
 test('should expire the cache after the timeout', function (t) {
   var run = cache(function (cb) {
-    cb(null, Math.random());
+    cb(Math.random());
   }, 50);
-  run(function (err, r1) {
+  run(function (r1) {
     setTimeout(function () {
-      run(function (err, r2) {
+      run(function (r2) {
         t.notEqual(r1, r2);
         t.end();
       });

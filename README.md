@@ -1,7 +1,6 @@
 # cache-callback
 
-Cache the result of a callback for x milliseconds. Will not cache if an
-error occurs.
+Cache the result of a callback for x milliseconds.
 
 [![Build Status](https://travis-ci.org/watson/cache-callback.png)](https://travis-ci.org/watson/cache-callback)
 
@@ -14,7 +13,6 @@ var cache = require('cache-callback');
 var getFile = cache(function (callback) {
   fs.readFile('/etc/passwd', callback);
 }, 1000*60);
-
 
 getFile(function (err, data) {
   console.log(data);
