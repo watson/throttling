@@ -1,5 +1,6 @@
 'use strict';
 
+var util = require('util');
 var test = require('tape');
 var cache = require('./');
 
@@ -67,9 +68,9 @@ test('should clear the cache if an error occurs', function (t) {
     cb(new Error(), Math.random());
   });
   run(function (err, r1) {
-    t.ok(err instanceof Error);
+    t.ok(util.isError(err));
     run(function (err, r2) {
-      t.ok(err instanceof Error);
+      t.ok(util.isError(err));
       t.notEqual(r1, r2);
       t.end();
     });
