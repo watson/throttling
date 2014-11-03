@@ -4,6 +4,12 @@ Throttle a function and cache the result for x milliseconds.
 
 [![Build Status](https://travis-ci.org/watson/throttling.png)](https://travis-ci.org/watson/throttling)
 
+## Installation
+
+```
+npm install throttling
+```
+
 ## Example
 
 ```js
